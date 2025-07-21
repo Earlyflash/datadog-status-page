@@ -23,8 +23,8 @@
   <div id="status-banner" class="banner">Loading Datadog status...</div>
 
   <script>
-  fetch('datadog-status-proxy.paul-f18.workers.dev')
-  .then(res => {
+  fetch('https://datadog-status-proxy.paul-f18.workers.dev')
+    .then(res => {
     console.log('Fetch response status:', res.status);
     return res.json();
   })
