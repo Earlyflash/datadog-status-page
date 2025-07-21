@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Datadog EU Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="refresh" content="300" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    .banner {
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="status-banner" class="banner">Loading Datadog status...</div>
+
+  <script>
+    fetch("https://status.datadoghq.eu/api/v2/status.json")
+      .then(response => response.json())
+      .then(data => {
+        const banner = document.getElementById("status-banner");
+        const indicator = data.status.indicator;
+        const description = data.status.description;
+
+        const colors = {
+          none: "#2ecc71",
+          minor: "#f1c40f",
+          major: "#e67e22",
+          critical: "#e74c3c"
+        };
+
+        banner.style.backgroundColor = colors[indicator] || "#95a5a6";
+        banner.textContent = `🚦 Datadog EU Status: ${description}`;
+      })
+      .catch(() => {
+        const banner = document.getElementById("status-banner");
+        banner.style.backgroundColor = "#7f8c8d";
+        banner.textContent = "⚠️ Unable to load Datadog EU status.";
+      });
+  </script>
+</body>
+</html>
