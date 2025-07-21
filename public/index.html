@@ -1,57 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Datadog EU Status</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="refresh" content="300" />
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-    }
-    .banner {
-      padding: 10px 20px;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <div id="status-banner" class="banner">Loading Datadog status...</div>
+<div id="status-banner" style="
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  display: inline-block;
+  user-select: none;
+  ">
+  Loading Datadog EU status...
+</div>
 
-  <script>
-  fetch('https://datadog-status-proxy.paul-f18.workers.dev')
-    .then(res => {
-    console.log('Fetch response status:', res.status);
-    return res.json();
-  })
+<script>
+fetch('https://datadog-status-proxy.paul-f18.workers.dev')
+  .then(res => res.json())
   .then(data => {
-    console.log('Received data:', data);
     const banner = document.getElementById('status-banner');
     const indicator = data.status.indicator;
     const description = data.status.description;
 
     const colors = {
-      none: '#2ecc71',
-      minor: '#f1c40f',
-      major: '#e67e22',
-      critical: '#e74c3c'
+      none: '#28a745',       // green
+      minor: '#ffc107',      // amber
+      major: '#fd7e14',      // orange
+      critical: '#dc3545'    // red
     };
 
-    banner.style.backgroundColor = colors[indicator] || '#95a5a6';
-    banner.textContent = `🚦 Datadog EU Status: ${description}`;
+    banner.style.backgroundColor = colors[indicator] || '#6c757d'; // gray fallback
+    banner.textContent = `🚦 Datadog EU: ${description}`;
   })
   .catch(err => {
-    console.error('Fetch error:', err);
     const banner = document.getElementById('status-banner');
-    banner.style.backgroundColor = '#7f8c8d';
+    banner.style.backgroundColor = '#6c757d';
     banner.textContent = '⚠️ Unable to load Datadog EU status.';
+    console.error(err);
   });
-  </script>
-</body>
-</html>
-
-
+</script>
