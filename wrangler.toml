@@ -1,0 +1,7 @@
+name = "datadog-status-proxy"
+main = "index.js"
+compatibility_date = "2025-07-21"
+
+# Optional, if you want to deploy to a specific account/project
+# account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+# workers_dev = true

@@ -23,28 +23,30 @@
   <div id="status-banner" class="banner">Loading Datadog status...</div>
 
   <script>
-    fetch("https://status.datadoghq.eu/api/v2/status.json")
-      .then(response => response.json())
-      .then(data => {
-        const banner = document.getElementById("status-banner");
-        const indicator = data.status.indicator;
-        const description = data.status.description;
+  fetch('https://datadog-status-proxy.<your-subdomain>.workers.dev')
+    .then(response => response.json())
+    .then(data => {
+      const banner = document.getElementById("status-banner");
+      const indicator = data.status.indicator;
+      const description = data.status.description;
 
-        const colors = {
-          none: "#2ecc71",
-          minor: "#f1c40f",
-          major: "#e67e22",
-          critical: "#e74c3c"
-        };
+      const colors = {
+        none: "#2ecc71",
+        minor: "#f1c40f",
+        major: "#e67e22",
+        critical: "#e74c3c"
+      };
 
-        banner.style.backgroundColor = colors[indicator] || "#95a5a6";
-        banner.textContent = `🚦 Datadog EU Status: ${description}`;
-      })
-      .catch(() => {
-        const banner = document.getElementById("status-banner");
-        banner.style.backgroundColor = "#7f8c8d";
-        banner.textContent = "⚠️ Unable to load Datadog EU status.";
-      });
+      banner.style.backgroundColor = colors[indicator] || "#95a5a6";
+      banner.textContent = `🚦 Datadog EU Status: ${description}`;
+    })
+    .catch(() => {
+      const banner = document.getElementById("status-banner");
+      banner.style.backgroundColor = "#7f8c8d";
+      banner.textContent = "⚠️ Unable to load Datadog EU status.";
+    });
   </script>
 </body>
 </html>
+
+
