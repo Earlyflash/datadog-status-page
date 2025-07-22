@@ -37,7 +37,19 @@
           };
 
           banner.style.backgroundColor = colors[indicator] || 'gray';
-          banner.textContent = `🚦 Datadog EU: ${description}`;
+
+          // Wrap content in a link to the official status page
+          banner.innerHTML = `
+            <a href="https://status.datadoghq.eu/" target="_blank" rel="noopener noreferrer" style="
+              color: white;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+            ">
+              <span style="font-size: 28px;">🚦</span> Datadog EU: ${description}
+            </a>
+          `;
         })
         .catch(err => {
           const banner = document.getElementById('status-banner');
